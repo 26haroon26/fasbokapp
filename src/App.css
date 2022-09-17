@@ -1,0 +1,121 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins&family=Roboto&family=Ubuntu&display=swap');
+
+.top {
+    position: fixed;
+    width: 100%;
+    z-index: 1;
+    background-color: white;
+    height: 10vh;
+    top: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.bottom {
+    background-color: #F0F2F5;
+    margin-top: 10vh;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+
+}
+
+.bottom .RightSide {
+    width: 20%;
+    position: fixed;
+    right: 80%;
+    height: 90vh;
+    overflow-y: scroll;
+
+}
+
+.bottom .Center {
+    width: 55%;
+
+}
+
+.bottom .LeftSide {
+    width: 20%;
+    height: 90vh;
+    position: fixed;
+    left: 80%;
+    overflow-y: scroll;
+
+
+}
+
+.swiperSlider {
+    height: 200px;
+    border-radius: 10px;
+    padding: 5px 5px 0px 5px;
+}
+
+.sliderItem {
+    opacity: 0.8;
+    margin: auto;
+    border-radius: 10px;
+    height: 180px;
+}
+
+.sliderItem .slbg:hover {
+    opacity: 0;
+}
+
+.sliderItem .slbg {
+    border-radius: 10px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background-color: black;
+    opacity: 0.5;
+    transition: all .5s ease;
+}
+
+.sliderItem .bgimg {
+    width: 100%;
+    border-radius: 10px;
+    height: inherit;
+}
+
+.sliderItem h5 {
+    left: 15px;
+    font-family: Poppins;
+    font-size:small ;
+    position: absolute;
+    color: white;
+    bottom: 0;
+}
+
+.sliderItem .profile {
+    position: absolute;
+    top: 5%;
+    left: 5%;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    border: 3px solid blue;
+}
+
+.mySwiper {
+    height: 90%;
+    z-index: 0 !important;
+    width: 85%;
+}.mySwiper + button{
+width: 50px;
+height: 50px;
+border-radius: 50%;
+border: 1px solid #F0F2F5;
+background-color: white;
+
+}
+
+.swiper-button-next,
+.swiper-button-prev {
+    color: white;
+}
+.swiper-button-prev:after, .swiper-button-next:after{
+    content: '';
+}
