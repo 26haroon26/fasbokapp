@@ -66,7 +66,6 @@ const Slider = () => {
           <h5>UerName</h5>
         </SwiperSlide>
       </Swiper>
-        <button><img className="img" src="./images/arrow.png" alt="" /></button>
     </>
   );
 };

@@ -1,0 +1,20 @@
+.dark{
+    color:white;
+}
+.light{
+    color: black;
+}
+.normal{
+    background-color: #F0F2F5;
+}
+.hard{
+    background-color: rgb(38, 10, 10);
+}
+.solid{
+    background-color: blue;
+    color: white;
+}
+.liquid{
+    background-color: white;
+    color: black;
+}

@@ -14,14 +14,11 @@ transform: rotate(1turn);
 }
 .list {
     list-style-type: none;
-    width: 100%;
+    width: 95%;
     margin: 0;
     padding: 0;
 }
 
-.RightSide {
-    background-color: #F0F2F5;
-}
 .RightSide::-webkit-scrollbar-track
 {
 	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
@@ -55,16 +52,26 @@ transform: rotate(1turn);
 
 .listItemsImage {
     height: 30px;
+    transition: all .5s ease-in-out;
     width: 30px;
+}
+.listItemsImage:hover{
+    transform: rotate(-1turn);
 }
 
 .listItems {
     display: flex;
     gap: 5px;
     align-items: center;
-    width: 50%;
-    justify-content: center;
+    width: 100%;
+    padding-left: 10px;
 }
+.list .listItems:hover{
+    background-color: #BCC0C4;
+     border-radius: 10px;
+     transition: all 0.3s;
+ }
+ 
 
 .listItems .listItemsText {
     width: 50%;

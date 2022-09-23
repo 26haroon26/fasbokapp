@@ -1,54 +1,92 @@
-.Navbar{
-    height: 50px;
+.Navbar {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    box-shadow: 0px 0px 10px 1px #6D6F73;
 }
+.NavWhite{
+    background-color: white;
+    box-shadow: 0px 0px 10px 1px #6D6F73;
+}.NavBlack{
+    background-color: black;
+    box-shadow: 0px 0px 10px 5px black;
+
+
+}
+
 .Navbar .head {
     width: 20%;
     justify-content: space-evenly;
     display: flex;
     align-items: center;
 }
+
 .faceBookLogo {
     height: 40px;
     width: 40px;
 }
 
 .faceSearch {
-    height: 40px;
+    height: 35px;
     background-color: #F0F2F5;
-    width: 200px;
     padding: 5px;
     border: 1px solid #cccecf;
     border-radius: 50px;
     text-align: center;
-    
+
 }
-.head1{
+
+.head1 {
     width: 45%;
     display: flex;
     justify-content: space-between;
-    /* gap: 50px; */
     align-items: center;
-}.head2{
+}
+
+.head2 {
     width: 20%;
     display: flex;
     justify-content: space-around;
     align-items: center;
 
-}.head2 div{
-    background-color: #F0F2F5;
-    /* height: 35px; */
-    border-radius: 50%;
-    /* width: 35px; */
-    padding: 10px;
-    text-align: center;
 }
-.profile{
+ 
+
+.profile {
     height: 40px;
     width: 40px;
     border-radius: 50%;
 
+}.profile:hover{
+transform: scale(1.1);
+}
+
+.Navbar .head1 svg {
+    height: 25px;
+    width: 60px;
+    
+}
+
+.Navbar .head1 svg:hover {
+    background-color: #cccecf;
+    border-radius: 5px;
+    color: black;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 1px 5px #cccecf;
+}
+.Navbar .head2 svg{
+    width: 18px;
+    height: 20px;padding: 5px;
+    background-color: #cccecf;
+    border-radius: 50%;
+} 
+
+.Navbar .head2 svg:hover{
+    background-color: #cccecf;
+    color: black;
+    transition: all 0.3s;
+    box-shadow: 0px 0px 1px 5px #cccecf;
+}.wb{
+color: white;
+/* background-color: aliceblue; */
 }

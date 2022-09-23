@@ -4,15 +4,14 @@
     position: fixed;
     width: 100%;
     z-index: 1;
-    background-color: white;
     height: 10vh;
+    text-align: center;
     top: 0;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
 }
 
 .bottom {
-    background-color: #F0F2F5;
     margin-top: 10vh;
     display: flex;
     width: 100%;
@@ -103,19 +102,28 @@
     height: 90%;
     z-index: 0 !important;
     width: 85%;
-}.mySwiper + button{
-width: 50px;
-height: 50px;
-border-radius: 50%;
-border: 1px solid #F0F2F5;
-background-color: white;
-
 }
 
 .swiper-button-next,
 .swiper-button-prev {
     color: white;
+}.swiper-pagination-bullet{
+    display: none;
 }
-.swiper-button-prev:after, .swiper-button-next:after{
-    content: '';
+.sunMoon{
+    height: 25px;
+    width: 25px;
+}
+
+.btnChanger{
+    height: 35px;
+    width: 35px;
+    position:fixed;
+    border-radius: 50%;
+    top: 1.5%;
+    right: 21%; ;
+    border: 1px solid red;
+    margin: 0;
+    padding: 0;
+
 }
