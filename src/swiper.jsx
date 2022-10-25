@@ -14,10 +14,14 @@ import {Autoplay, Pagination, Navigation } from "swiper";
 import React from "react";
 
 const Slider = () => {
+  let veiwNumber = 5;
+ { if (window.innerWidth <= 635) {
+    veiwNumber = 3;
+  }}
   return (
     <>
       <Swiper
-        slidesPerView={5}
+        slidesPerView={veiwNumber}
         spaceBetween={15}
         slidesPerGroup={3}
         loop={true}

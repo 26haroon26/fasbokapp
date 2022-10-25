@@ -18,21 +18,24 @@ transform: rotate(1turn);
     margin: 0;
     padding: 0;
 }
-
-.RightSide::-webkit-scrollbar-track
+.RightSide::-webkit-scrollbar{
+    overflow-y: hidden;
+}
+.RightSide:hover::-webkit-scrollbar-track
 {
+    overflow-y: scroll;
 	box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
 	border-radius: 10px;
 	background-color: #F5F5F5;
 }
 
-.RightSide::-webkit-scrollbar
+.RightSide:hover::-webkit-scrollbar
 {
 	width: 8px;
 	background-color: #F5F5F5;
 }
 
-.RightSide::-webkit-scrollbar-thumb
+.RightSide:hover::-webkit-scrollbar-thumb
 {
 	border-radius: 10px;
 	box-shadow: inset 0 0 6px rgba(0,0,0,.3);
@@ -64,19 +67,13 @@ transform: rotate(1turn);
     gap: 5px;
     align-items: center;
     width: 100%;
-    padding-left: 10px;
+    padding-left: 6px;
 }
 .list .listItems:hover{
     background-color: #BCC0C4;
      border-radius: 10px;
      transition: all 0.3s;
  }
- 
-
-.listItems .listItemsText {
-    width: 50%;
-    /* height: 30px; */
-}
 .RightSide .body .btn{
     margin-left: 20px;
     
@@ -85,4 +82,9 @@ transform: rotate(1turn);
     border: 1px solid black;
     border-radius: 50px;
 
+}
+@media only screen and (max-width:768px){
+.RightSide{
+    display: none;
+}
 }

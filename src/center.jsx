@@ -23,7 +23,7 @@ function Post({profilePhoto, name, postDate, postText, postImage}) {
   // }
   return (
     <div >
-  <div className={`post ${classValue =='true' ? 'yesPost':"noPost"}`} >
+  <div className={`post ${classValue ==='true' ? 'yesPost':"noPost"}`} >
 {/* <div className={color}>check </div> */}
     <div className='postHeader'>
       <img className='profilePhoto' src={profilePhoto} alt="profile" />

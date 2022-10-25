@@ -11,15 +11,22 @@
     border-radius: 20px;
     width: 60%;
     padding: 20px;
+    transition: all 0.8s ease-in-out;
     margin: 10px auto;
+    transform: scale(0.9);
     box-shadow: 0px 0px 20px 2px #6D6F73;
+}.post:hover{
+transform: scale(1);
+
 }
 .yesPost{
+    transition: all 0.8s ease-in-out;
 
     background-color: white;
 }
 .noPost{
     background-color: black;
+    transition: all 0.8s ease-in-out;
 
 }
 

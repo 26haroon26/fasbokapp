@@ -13,14 +13,11 @@ function App() {
   const imgsrc = lit ? 'sun':'moon';
   
   useEffect(() => {
-    localStorage.setItem('class',`${lit}`)
-   
-     
-   }, [])
+    localStorage.setItem('class',`${lit}`) 
+   },)
   let colorChanger = () => {
     setlit(!lit)
     localStorage.setItem('class',`${!lit}`)
-
   }
  
   

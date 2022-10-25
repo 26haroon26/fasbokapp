@@ -2,8 +2,7 @@ import "./navbar.css";
 import React from "react";
 
 function Navbar() {
-  let backGroundChange = localStorage.getItem('class')
-
+  let backGroundChange = localStorage.getItem('class');
   return (
     <div className={`Navbar ${backGroundChange === 'true'?  'NavWhite':'NavBlack'}`}  >
       <div className="head">

@@ -21,9 +21,8 @@
 }
 
 .bottom .RightSide {
-    width: 20%;
     position: fixed;
-    right: 80%;
+    left: 0%;
     height: 90vh;
     overflow-y: scroll;
 
@@ -35,10 +34,9 @@
 }
 
 .bottom .LeftSide {
-    width: 20%;
     height: 90vh;
     position: fixed;
-    left: 80%;
+    right: 0%;
     overflow-y: scroll;
 
 
@@ -120,10 +118,50 @@
     width: 35px;
     position:fixed;
     border-radius: 50%;
-    top: 1.5%;
+    top: 3%;
     right: 21%; ;
-    border: 1px solid red;
+    border: 2px solid goldenrod;
     margin: 0;
     padding: 0;
 
+}
+@media only screen and (max-width:992px){
+    .listItems {
+        padding-left: 0px;
+    }
+    .btnChanger {
+        top: 3%;
+    }
+}
+@media only screen and (max-width:768px){
+    .bottom{
+        margin-top: 6%;
+    }
+    .top{
+        height: 6vh;
+
+}    .btnChanger {
+    top: 1%;
+}.bottom .Center{
+    width: 75%;
+    margin-right: 25%;
+}.swiperSlider {
+    padding: 14px 5px 0px 5px;
+}
+}
+@media only screen and (max-width:635px){
+.LeftSide{
+    display: none;
+}.bottom .Center{
+    width: 100%;
+    margin-right: 0px;
+    margin-top: 20px;
+}.sliderItem .profile {
+    width: 25px;
+    height: 25px;
+}.sliderItem {
+    height: 160px;
+}.btnChanger {
+    right: 0%;
+}
 }
