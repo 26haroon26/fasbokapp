@@ -1,10 +1,11 @@
 import "./navbar.css";
+import "./toggle.css";
 import React from "react";
 
 function Navbar() {
   let backGroundChange = localStorage.getItem('class');
   return (
-    <div className={`Navbar ${backGroundChange === 'true'?  'NavWhite':'NavBlack'}`}  >
+    <div className={`Navbar ${backGroundChange !== 'true'? 'NavBlack':'NavWhite'}`}  >
       <div className="head">
         <img
           src='./images/facebooklogo.webp'

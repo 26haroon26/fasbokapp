@@ -5,17 +5,17 @@
     align-items: center;
     justify-content: space-between;
 }
-.NavWhite{
+/* .NavWhite{
     background-color: white;
     transition: all 0.8s ease-in-out;
     box-shadow: 0px 0px 10px 1px #6D6F73;
-}.NavBlack{
-    background-color: black;
+}.NavBlack{ */
+    /* background-color: black;
     box-shadow: 0px 0px 10px 5px black;
     transition: all 0.8s ease-in-out;
 
 
-}
+} */
 
 .Navbar .head {
     width: 20%;

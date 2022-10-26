@@ -16,7 +16,7 @@ function LeftSide() {
           <ul>
             <li className="Big">Friend request</li>
             <li>
-              <a href="#">See All</a>
+              <span>See All</span>
             </li>
           </ul>
         </div>

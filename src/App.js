@@ -23,7 +23,7 @@ function App() {
   
   return (
     <>
-      <div className={`top ${textColor}`}>
+      <div className={`top ${textColor} ${backColor} `}>
       <button className='btnChanger' onClick={colorChanger}><img className='sunMoon' src={`./images/${imgsrc}.png`} alt='aaaa' /></button>
         <Navbar />
       </div>

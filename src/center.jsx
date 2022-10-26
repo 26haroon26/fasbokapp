@@ -2,7 +2,6 @@ import "./center.css";
 import "./toggle.css";
 import React, { useState } from "react";
 import Slider from './swiper';
-import moment from 'moment';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faThumbsUp, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
@@ -29,7 +28,7 @@ function Post({profilePhoto, name, postDate, postText, postImage}) {
       <img className='profilePhoto' src={profilePhoto} alt="profile" />
       <div>
         {name} <br />
-        {moment(postDate).fromNow()}
+        {postDate}
       </div>
     </div>
     
@@ -62,7 +61,7 @@ function Center () {
     <Post
       name="Arsalan"
       profilePhoto="./images/img1.png"
-      postDate="Dec/12/2021"
+      postDate="13 Dec "
       postImage="./images/postimage1.jpg"
       postText="Alhamdulillah !!!
       Finally the wait is over and By the grace of Almighty Allah we are proudly present
@@ -74,21 +73,21 @@ function Center () {
     <Post
       name="Malik"
       profilePhoto="./images/profileimage1.jpg"
-      postDate="Dec/12/2021"
+      postDate="19 Jun "
       postImage="./images/postimage.jpg"
       postText="The guides area is designed to help developers learn to better interact with the date and time problem domain, and the Moment.js library."
     />
     <Post
       name="Rehan"
       profilePhoto="./images/profileimage2.jpg"
-      postDate="Aug/22/2022"
+      postDate="2 Aug "
       postImage="./images/postimage2.jpg"
       postText="The guides area is designed to help developers learn to better interact with the date and time problem domain, and the Moment.js library."
     />
     <Post
       name="Saylani"
       profilePhoto="./images/profileimage3.jpg"
-      postDate="Dec/12/2021"
+      postDate="23 May "
       postImage="./images/postimage3.jpg"
       postText="The guides area is designed to help developers learn to better interact with the date and time problem domain, and the Moment.js library."
 />

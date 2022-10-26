@@ -19,7 +19,7 @@
 transform: scale(1);
 
 }
-.yesPost{
+/* .yesPost{
     transition: all 0.8s ease-in-out;
 
     background-color: white;
@@ -28,7 +28,7 @@ transform: scale(1);
     background-color: black;
     transition: all 0.8s ease-in-out;
 
-}
+} */
 
 .post .postHeader {
     display: flex;
@@ -64,4 +64,9 @@ transform: scale(1);
     color: yellow;
 }.white{
     color: white;
+}
+@media only screen and (max-width:635px){
+    .post{
+        width: 80%;
+    }
 }
