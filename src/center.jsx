@@ -1,100 +1,327 @@
 import "./center.css";
 import "./toggle.css";
-import React, { useState } from "react";
-import Slider from './swiper';
+import React, { useState, useEffect } from "react";
+import Slider from "./swiper";
+import Popover from "@mui/material/Popover";
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faThumbsUp,
+  faComment,
+  faShare,
+  faEllipsisVertical,
+} from "@fortawesome/free-solid-svg-icons";
+//  firebase
+import "./App.css";
+import moment from "moment";
+import axios from "axios";
+import { initializeApp } from "firebase/app";
+import {
+  getFirestore,
+  collection,
+  addDoc,
+  doc,
+  query,
+  serverTimestamp,
+  updateDoc,
+  onSnapshot,
+  deleteDoc,
+  orderBy,
+} from "firebase/firestore";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faThumbsUp, faComment, faShare } from '@fortawesome/free-solid-svg-icons'
+// firebase code
+const firebaseConfig = {
+  apiKey: "AIzaSyCUnoboaWcVh3P2q9TMmc6yW8EtQC0XEuw",
+  authDomain: "socialmediaapp-d9873.firebaseapp.com",
+  projectId: "socialmediaapp-d9873",
+  storageBucket: "socialmediaapp-d9873.appspot.com",
+  messagingSenderId: "121456148400",
+  appId: "1:121456148400:web:087cebaa92781388666075",
+};
 
-function Post({profilePhoto, name, postDate, postText, postImage}) {
+const app = initializeApp(firebaseConfig);
 
-  const [currentColor, setcurrentColor] = useState(true)
-   let colorChange = ()=>{
-     setcurrentColor(!currentColor)
-   }
-   let classValue  =  localStorage.getItem("class");
- 
-  // let color;
-  // if( classValue === "true"){
-    // color="red"
-  // }else {
-  //   color="yellow"
-  // }
+const db = getFirestore(app);
+
+function Post() {
+  const [currentColor, setcurrentColor] = useState(true);
+  // const [isclicked, setisclicked] = useState(true);
+  
+  // mui
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+  let colorChange = () => {
+    setcurrentColor(!currentColor);
+  };
+  let classValue = localStorage.getItem("class");
+
+  // firebasecode
+  const [postData, setpostData] = useState("");
+  const [Posts, setPosts] = useState([]);
+  const [file, setfile] = useState(null);
+  const [Editing, setEditing] = useState({
+    editingId: null,
+    editingText: "",
+  });
+  useEffect(() => {
+    let unsubscribe = null;
+
+    const getRealTimeData = async () => {
+      const q = query(collection(db, "posts"), orderBy("time", "desc"));
+      unsubscribe = onSnapshot(q, (querySnapshot) => {
+        const posts = [];
+
+        querySnapshot.forEach((doc) => {
+          // posts.unshift(doc.data()); ye bhi tariqa he descending krne ka
+          // posts.push(doc.data()); is ko naye tariqe se push kr rhe hen
+
+          posts.push({ id: doc.id, ...doc.data() });
+        });
+        setPosts(posts);
+      });
+    };
+    getRealTimeData();
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  const SavePost = async (e) => {
+    e.preventDefault();
+
+    const cloudinaryData = new FormData();
+    cloudinaryData.append("file", file);
+    cloudinaryData.append("upload_preset", "postPhotoFacebook");
+    cloudinaryData.append("cloud_name", "haroon123");
+    axios
+      .post(
+        `https://api.cloudinary.com/v1_1/haroon123/image/upload`,
+        cloudinaryData,
+        {
+          header: {
+            "Content-Type": "multipart/from-data",
+          },
+        }
+      )
+      .then((res) => {
+        try {
+          const docRef = addDoc(collection(db, "posts"), {
+            text: postData,
+            time: serverTimestamp(),
+            img: res?.data?.url,
+          });
+        } catch (e) {}
+      });
+  };
+
+  const DeletePost = async (postId) => {
+    await deleteDoc(doc(db, "posts", postId));
+  };
+  const UpdatePost = async (e) => {
+    e.preventDefault();
+    await updateDoc(doc(db, "posts", Editing.editingId), {
+      text: Editing.editingText,
+    });
+    setEditing({
+      editingId: null,
+      editingText: "",
+    });
+  };
+  const openSelect = (e) => {
+    console.log("1111");
+  };
+
   return (
-    <div >
-  <div className={`post ${classValue ==='true' ? 'yesPost':"noPost"}`} >
-{/* <div className={color}>check </div> */}
-    <div className='postHeader'>
-      <img className='profilePhoto' src={profilePhoto} alt="profile" />
-      <div>
-        {name} <br />
-        {postDate}
+    <div>
+      <form onSubmit={SavePost} className="form">
+        <div className="inpText">
+          <img src="images/img1.png" className="profilePhoto" alt="" />
+          <input
+            className="input"
+            type="text"
+            placeholder="What's in your mind..."
+            onChange={(e) => {
+              setpostData(e.target.value);
+            }}
+          />
+        </div>
+        <div className="inputFile">
+          <input
+            type={"file"}
+            id="image"
+            onChange={(e) => {
+              setfile(e.currentTarget.files[0]);
+            }}
+          />
+          <button type="submit" className="button">
+            GetPost
+          </button>
+        </div>
+      </form>
+      <div className="body">
+        <div className="flex">
+          {Posts.map((eachPost, i) => (
+            <div
+              className={`post ${classValue === "true" ? "yesPost" : "noPost"}`}
+              key={i}
+            >
+              <div className="postHeader">
+                <img
+                  className="profilePhoto"
+                  src="images/img1.png"
+                  alt="profile"
+                />
+                <div>
+                  {"Haroon"} <br />
+                  {
+                    <span>
+                      {moment(
+                        eachPost?.time?.seconds
+                          ? eachPost?.time.seconds * 1000
+                          : undefined
+                      ).fromNow()}
+                    </span>
+                  }
+                </div>
+                <div>
+      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+      <FontAwesomeIcon icon={faEllipsisVertical} />
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+        transformOrigin={{
+          vertical: 'top',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}><select>
+                      <option>Delete</option>
+                      <option>Edit</option>
+                    </select></Typography>
+      </Popover>
+    </div>
+                <div className="threedots">
+                </div>
+                {/* {isclicked === true ? (
+                  sasas
+              
+                ) : (
+                  <div>
+                    <select>
+                      <option>Delete</option>
+                      <option>Edit</option>
+                    </select>
+                  </div>
+                )} */}
+              </div>
+              <div className="postText">
+                <p className="postDescr">
+                  {eachPost.id === Editing.editingId ? (
+                    <form className="NextForm" onSubmit={UpdatePost}>
+                      <input
+                        type="text"
+                        className="input"
+                        value={Editing.editingText}
+                        onChange={(e) => {
+                          setEditing({
+                            ...Editing,
+                            editingText: e.target.value,
+                          });
+                        }}
+                        placeholder="Please Enter Updated Value"
+                      />
+                      <button type="submit" className="button next">
+                        Update
+                      </button>
+                    </form>
+                  ) : (
+                    eachPost?.text
+                  )}
+                </p>
+
+                <img
+                  src={eachPost?.img}
+                  alt=""
+                  id="images"
+                  className="postImage"
+                />
+                <br />
+                {/* <div className="NextForm">
+                  <button
+                    className="button"
+                    onClick={() => {
+                      DeletePost(eachPost?.id);
+                    }}
+                  >
+                    Delete
+                  </button>
+                  {Editing.editingId === eachPost?.id ? null : (
+                    <button
+                      className="button"
+                      onClick={() => {
+                        setEditing({
+                          editingId: eachPost?.id,
+                          editingText: eachPost?.text,
+                        });
+                      }}
+                    >
+                      Edit
+                    </button>
+                  )}
+                </div> */}
+                <hr />
+                <div className="postFooter">
+                  <div onClick={colorChange}>
+                    <FontAwesomeIcon
+                      className={currentColor ? "black" : "yellow"}
+                      icon={faThumbsUp}
+                    />
+                    like
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faComment} /> comment
+                  </div>
+                  <div>
+                    <FontAwesomeIcon icon={faShare} /> share
+                  </div>
+                </div>
+                <hr />
+              </div>
+            </div>
+          ))}
+        </div>
       </div>
-    </div>
-    
-    <div className='postText'>
-      {postText}
-    </div>
-    <img className='postImage' src={postImage} alt="post" />
-
-    <hr />
-    <div className='postFooter'>
-      <div onClick={colorChange}> <FontAwesomeIcon className={currentColor? 'black':'yellow' 
-      // (classValue === 'true' ? )
-    }  icon={faThumbsUp} /> like </div>
-      <div > <FontAwesomeIcon icon={faComment} /> comment</div>
-      <div > <FontAwesomeIcon icon={faShare} /> share</div>
-    </div>
-    <hr />
-
-  </div>
     </div>
   );
 }
-function Center () {
+function Center() {
   // let classValue  =  localStorage.getItem("class");
-  return <div className='Center'>
-<div className="swiperSlider">
-< Slider />
-</div>
-
-    <Post
-      name="Arsalan"
-      profilePhoto="./images/img1.png"
-      postDate="13 Dec "
-      postImage="./images/postimage1.jpg"
-      postText="Alhamdulillah !!!
-      Finally the wait is over and By the grace of Almighty Allah we are proudly present
-      SAYLANI ASAN SADQA application.
-      SADQA now just one click away !
-      Download and rate as well !
-       feeling proud at Saylani Welfare International Trust.."
-    />
-    <Post
-      name="Malik"
-      profilePhoto="./images/profileimage1.jpg"
-      postDate="19 Jun "
-      postImage="./images/postimage.jpg"
-      postText="The guides area is designed to help developers learn to better interact with the date and time problem domain, and the Moment.js library."
-    />
-    <Post
-      name="Rehan"
-      profilePhoto="./images/profileimage2.jpg"
-      postDate="2 Aug "
-      postImage="./images/postimage2.jpg"
-      postText="The guides area is designed to help developers learn to better interact with the date and time problem domain, and the Moment.js library."
-    />
-    <Post
-      name="Saylani"
-      profilePhoto="./images/profileimage3.jpg"
-      postDate="23 May "
-      postImage="./images/postimage3.jpg"
-      postText="The guides area is designed to help developers learn to better interact with the date and time problem domain, and the Moment.js library."
-/>
-
-
-  </div>
-  
+  return (
+    <div className="Center">
+      <div className="swiperSlider">
+        <Slider />
+      </div>
+      <Post />
+    </div>
+  );
 }
 
 export default Center;

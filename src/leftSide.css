@@ -25,7 +25,7 @@ a {
 
 .LeftSide .head .first ul {
     display: flex;
-    width: 95%;
+    width: 200px;
     align-items: center;
     justify-content: space-between;
 }
@@ -38,7 +38,7 @@ a {
 .LeftSide .head .second ul {
     margin-top: 15px;
     display: flex;
-    width: 100%;
+    /* width: 100%; */
     gap: .5rem;
 }
 
@@ -88,11 +88,11 @@ a {
 .LeftSide .center .first {
     display: flex;
     justify-content: space-between;
+    width: 200px;
 }
 
 .LeftSide .center .first ul {
     display: flex;
-    width: 60%;
     justify-content: space-around;
     align-items: center;
 }
