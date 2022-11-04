@@ -46,7 +46,8 @@ const db = getFirestore(app);
 
 function Post() {
   const [currentColor, setcurrentColor] = useState(true);
-  // const [delEdit, setdelEdit] = useState(null);
+  const [Id, setId] = useState('');
+  const [Text, setText] = useState('');
 
   // mui
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -122,7 +123,7 @@ function Post() {
             time: serverTimestamp(),
             img: res?.data?.url,
           });
-        } catch (e) {}
+        } catch (e) { }
       });
   };
 
@@ -139,6 +140,7 @@ function Post() {
       editingText: "",
     });
   };
+
 
   return (
     <div>
@@ -198,7 +200,12 @@ function Post() {
                     variant="contained"
                     className="threedots"
                     onClick={handleClick}
-                    
+                    onMouseDown={() => {
+                      setId(eachPost?.id);
+                      setText(eachPost?.text);
+                      console.log(eachPost.id);
+                    }}
+
                   >
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                   </Button>
@@ -219,8 +226,8 @@ function Post() {
                     <Typography sx={{ p: 2 }}>
                       <button
                         onClick={() => {
+
                           DeletePost(eachPost?.id);
-                          console.log(eachPost.id);
                         }}
                       >
                         Delete{" "}
@@ -229,8 +236,8 @@ function Post() {
                         onClick={() => {
                           console.log(eachPost?.id);
                           setEditing({
-                            editingId: eachPost?.id,
-                            editingText: eachPost?.text,
+                            editingId: Id,
+                            editingText: Text,
                           });
                         }}
                       >
