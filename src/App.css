@@ -15,6 +15,8 @@
     margin-top: 10vh;
     display: flex;
     width: 100%;
+    min-height: 90vh;
+    max-height: max-content;
     justify-content: center;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 
@@ -30,6 +32,7 @@
 
 .bottom .Center {
     width: 55%;
+    /* height: 90vh; */
 
 }
 
@@ -138,7 +141,7 @@
         margin-top: 5%;
     }
     .top{
-        height: 6vh;
+        height: 10vh;
 
 }    .btnChanger {
     top: 1%;

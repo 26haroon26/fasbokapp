@@ -3,8 +3,8 @@ import "./toggle.css";
 import React, { useState, useEffect } from "react";
 import Slider from "./swiper";
 import Popover from "@mui/material/Popover";
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
+import Typography from "@mui/material/Typography";
+import Button from "@mui/material/Button";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faThumbsUp,
@@ -46,8 +46,8 @@ const db = getFirestore(app);
 
 function Post() {
   const [currentColor, setcurrentColor] = useState(true);
-  // const [isclicked, setisclicked] = useState(true);
-  
+  // const [delEdit, setdelEdit] = useState(null);
+
   // mui
   const [anchorEl, setAnchorEl] = React.useState(null);
 
@@ -60,7 +60,7 @@ function Post() {
   };
 
   const open = Boolean(anchorEl);
-  const id = open ? 'simple-popover' : undefined;
+  const id = open ? "simple-popover" : undefined;
   let colorChange = () => {
     setcurrentColor(!currentColor);
   };
@@ -87,6 +87,7 @@ function Post() {
           // posts.push(doc.data()); is ko naye tariqe se push kr rhe hen
 
           posts.push({ id: doc.id, ...doc.data() });
+          console.log(doc.id);
         });
         setPosts(posts);
       });
@@ -137,9 +138,6 @@ function Post() {
       editingId: null,
       editingText: "",
     });
-  };
-  const openSelect = (e) => {
-    console.log("1111");
   };
 
   return (
@@ -195,31 +193,53 @@ function Post() {
                   }
                 </div>
                 <div>
-      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
-      <FontAwesomeIcon icon={faEllipsisVertical} />
-      </Button>
-      <Popover
-        id={id}
-        open={open}
-        anchorEl={anchorEl}
-        onClose={handleClose}
-        anchorOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-        transformOrigin={{
-          vertical: 'top',
-          horizontal: 'left',
-        }}
-      >
-        <Typography sx={{ p: 2 }}><select>
-                      <option>Delete</option>
-                      <option>Edit</option>
-                    </select></Typography>
-      </Popover>
-    </div>
-                <div className="threedots">
+                  <Button
+                    aria-describedby={id}
+                    variant="contained"
+                    className="threedots"
+                    onClick={handleClick}
+                    
+                  >
+                    <FontAwesomeIcon icon={faEllipsisVertical} />
+                  </Button>
+                  <Popover
+                    id={id}
+                    open={open}
+                    anchorEl={anchorEl}
+                    onClose={handleClose}
+                    anchorOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                    transformOrigin={{
+                      vertical: "top",
+                      horizontal: "left",
+                    }}
+                  >
+                    <Typography sx={{ p: 2 }}>
+                      <button
+                        onClick={() => {
+                          DeletePost(eachPost?.id);
+                          console.log(eachPost.id);
+                        }}
+                      >
+                        Delete{" "}
+                      </button>
+                      <button
+                        onClick={() => {
+                          console.log(eachPost?.id);
+                          setEditing({
+                            editingId: eachPost?.id,
+                            editingText: eachPost?.text,
+                          });
+                        }}
+                      >
+                        Edit
+                      </button>
+                    </Typography>
+                  </Popover>
                 </div>
+                <div className="threedots"></div>
                 {/* {isclicked === true ? (
                   sasas
               
