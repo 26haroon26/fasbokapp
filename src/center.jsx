@@ -29,6 +29,7 @@ import {
   deleteDoc,
   orderBy,
 } from "firebase/firestore";
+import { display } from "@mui/system";
 
 // firebase code
 const firebaseConfig = {
@@ -46,8 +47,10 @@ const db = getFirestore(app);
 
 function Post() {
   const [currentColor, setcurrentColor] = useState(true);
-  const [Id, setId] = useState('');
-  const [Text, setText] = useState('');
+  const [Ppover, setPpover] = useState(true);
+  const [Id, setId] = useState("");
+  const [Text, setText] = useState("");
+  const [file, setfile] = useState("");
 
   // mui
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -70,10 +73,10 @@ function Post() {
   // firebasecode
   const [postData, setpostData] = useState("");
   const [Posts, setPosts] = useState([]);
-  const [file, setfile] = useState(null);
   const [Editing, setEditing] = useState({
     editingId: null,
     editingText: "",
+    editingfile: "",
   });
   useEffect(() => {
     let unsubscribe = null;
@@ -88,7 +91,7 @@ function Post() {
           // posts.push(doc.data()); is ko naye tariqe se push kr rhe hen
 
           posts.push({ id: doc.id, ...doc.data() });
-          console.log(doc.id);
+          // console.log(doc.id);
         });
         setPosts(posts);
       });
@@ -103,7 +106,7 @@ function Post() {
     e.preventDefault();
 
     const cloudinaryData = new FormData();
-    cloudinaryData.append("file", file);
+    cloudinaryData.append("file", file || Editing.editingfile);
     cloudinaryData.append("upload_preset", "postPhotoFacebook");
     cloudinaryData.append("cloud_name", "haroon123");
     axios
@@ -123,7 +126,7 @@ function Post() {
             time: serverTimestamp(),
             img: res?.data?.url,
           });
-        } catch (e) { }
+        } catch (e) {}
       });
   };
 
@@ -132,15 +135,19 @@ function Post() {
   };
   const UpdatePost = async (e) => {
     e.preventDefault();
+    // console.log(Editing.editingfile);
     await updateDoc(doc(db, "posts", Editing.editingId), {
       text: Editing.editingText,
+      // img: Editing.editingfile,
     });
     setEditing({
       editingId: null,
       editingText: "",
+      editingfile: "",
     });
   };
 
+  //  console.log(Posts)
 
   return (
     <div>
@@ -202,43 +209,48 @@ function Post() {
                     onClick={handleClick}
                     onMouseDown={() => {
                       setId(eachPost?.id);
+                      setPpover(true);
                       setText(eachPost?.text);
-                      console.log(eachPost.id);
+                      setfile(eachPost?.img);
+                      // console.log(eachPost.img);
                     }}
-
                   >
                     <FontAwesomeIcon icon={faEllipsisVertical} />
                   </Button>
                   <Popover
-                    id={id}
+                    id={Ppover ? id : "simple-nopover"}
                     open={open}
+                    // className={'simple-popover'}
                     anchorEl={anchorEl}
                     onClose={handleClose}
                     anchorOrigin={{
                       vertical: "top",
-                      horizontal: "left",
+                      horizontal: "top",
                     }}
                     transformOrigin={{
                       vertical: "top",
-                      horizontal: "left",
+                      horizontal: "top",
                     }}
                   >
                     <Typography sx={{ p: 2 }}>
                       <button
                         onClick={() => {
-
-                          DeletePost(eachPost?.id);
+                          DeletePost(Id);
+                          setPpover(false);
                         }}
                       >
                         Delete{" "}
                       </button>
                       <button
                         onClick={() => {
-                          console.log(eachPost?.id);
+                          // console.log(eachPost?.id);
                           setEditing({
                             editingId: Id,
                             editingText: Text,
+                            editingfile: file,
                           });
+                          setPpover(false);
+
                         }}
                       >
                         Edit
@@ -246,7 +258,7 @@ function Post() {
                     </Typography>
                   </Popover>
                 </div>
-                <div className="threedots"></div>
+                {/* <div className="threedots"></div> */}
                 {/* {isclicked === true ? (
                   sasas
               
@@ -260,17 +272,28 @@ function Post() {
                 )} */}
               </div>
               <div className="postText">
-                <p className="postDescr">
+                <div className="postDescr">
                   {eachPost.id === Editing.editingId ? (
                     <form className="NextForm" onSubmit={UpdatePost}>
                       <input
                         type="text"
-                        className="input"
+                        className="Updateinput"
                         value={Editing.editingText}
                         onChange={(e) => {
                           setEditing({
                             ...Editing,
                             editingText: e.target.value,
+                          });
+                        }}
+                        placeholder="Please Enter Updated Value"
+                      />
+                      <input
+                        type={"file"}
+                        className="Updateinput"
+                        onChange={(e) => {
+                          setEditing({
+                            ...Editing,
+                            editingfile: e.currentTarget.files[0],
                           });
                         }}
                         placeholder="Please Enter Updated Value"
@@ -282,7 +305,7 @@ function Post() {
                   ) : (
                     eachPost?.text
                   )}
-                </p>
+                </div>
 
                 <img
                   src={eachPost?.img}
