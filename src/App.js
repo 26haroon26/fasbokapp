@@ -1,15 +1,16 @@
-import RightSide from "./rightSide";
-import LeftSide from "./leftSide";
-import Center from "./center";
-import Gaming from "./gaming";
-import Market from "./market";
-import Watch from "./watch";
-import Contact from "./contact";
-import Navbar from "./navbar";
+import RightSide from "./components/rightside/rightSide"
+import LeftSide from "./components/leftside/leftSide";
+import Center from "./components/center/center" ;
+// import Gaming from "./pages/gaming/gaming";
+import Signup from "./signup/signup";
+import Login from "./login/login";
+import Market from "./pages/market/market";
+import Watch from "./pages/watch/watch";
+import Contact from "./pages/contact/contact";
+import Navbar from "./components/navbar/navbar" ;
 import { useEffect, useState } from "react";
 import "./App.css";
-import "./toggle.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 
 function App() {
   const [lit, setlit] = useState(true);
@@ -47,8 +48,8 @@ function App() {
             <Route index element={<Center />} />
             <Route exact path="/watch" element={<Watch />} />
             <Route exact path="/contact" element={<Contact />} />
-            <Route exact path="/gaming" element={<Gaming />} />
-            <Route exact path="/market" element={<Market />} />
+            <Route exact path="/signup" element={<Signup />} />
+            <Route exact path="/login" element={<Login />} />
           </Routes>
         <LeftSide />
       </div>
